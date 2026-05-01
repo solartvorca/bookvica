@@ -1,0 +1,346 @@
+{
+  "app": {
+    "name": "Буквица",
+    "subtitle": "Древняя Славянская Мудрость",
+    "version": "1.0.0",
+    "description": "Приложение для изучения и медитации с 49 славянскими буквицами",
+    "language": "ru",
+    "platforms": ["ios", "android", "web"]
+  },
+  "design": {
+    "theme": "dark",
+    "colors": {
+      "primary": "#c41e3a",
+      "accent": "#d4a574",
+      "secondary": "#f5e6d3",
+      "background": "#0a0a0a",
+      "background_secondary": "#1a2a3a",
+      "text_primary": "#ffffff",
+      "text_secondary": "#e8e8e8",
+      "gold": "#d4a574",
+      "silver": "#e8e8e8"
+    },
+    "typography": {
+      "heading_font": "Cinzel, Palatino, GadugiBook",
+      "body_font": "Roboto, Inter, 'Open Sans'",
+      "symbol_size_mobile": "72px",
+      "symbol_size_desktop": "120px"
+    },
+    "spacing": {
+      "mobile_padding": "16px",
+      "mobile_margin": "12px",
+      "tablet_padding": "24px",
+      "tablet_margin": "16px"
+    }
+  },
+  "screens": [
+    {
+      "id": "home",
+      "name": "Главная",
+      "icon": "home",
+      "route": "/"
+    },
+    {
+      "id": "study",
+      "name": "Учебник",
+      "icon": "book",
+      "route": "/study",
+      "features": [
+        "browse_all_bukvitsy",
+        "search",
+        "filter_by_modules",
+        "detailed_view",
+        "favorites",
+        "share"
+      ]
+    },
+    {
+      "id": "daily",
+      "name": "Буквица Дня",
+      "icon": "calendar",
+      "route": "/daily",
+      "features": [
+        "daily_rune",
+        "interpretation",
+        "history",
+        "notifications"
+      ]
+    },
+    {
+      "id": "birthday",
+      "name": "По Дате Рождения",
+      "icon": "user",
+      "route": "/birthday",
+      "features": [
+        "birthday_input",
+        "personality_rune",
+        "destiny_rune",
+        "compatibility",
+        "initiation_path"
+      ]
+    },
+    {
+      "id": "favorites",
+      "name": "Избранное",
+      "icon": "star",
+      "route": "/favorites",
+      "features": [
+        "saved_bukvitsy",
+        "reading_history",
+        "notes"
+      ]
+    }
+  ],
+  "screens_detailed": {
+    "home": {
+      "layout": "hero_with_navigation",
+      "sections": [
+        {
+          "type": "hero",
+          "title": "Буквица",
+          "subtitle": "Древняя Славянская Мудрость",
+          "background_image": "slavic_pattern",
+          "cta_buttons": [
+            {
+              "text": "Начать учебник",
+              "action": "navigate_to_study",
+              "style": "primary"
+            },
+            {
+              "text": "Буквица дня",
+              "action": "navigate_to_daily",
+              "style": "secondary"
+            }
+          ]
+        },
+        {
+          "type": "quick_access",
+          "title": "Быстрый доступ",
+          "items": [
+            {
+              "id": "daily_rune",
+              "title": "Буквица дня",
+              "icon": "calendar",
+              "action": "navigate_to_daily"
+            },
+            {
+              "id": "my_rune",
+              "title": "Моя буквица",
+              "icon": "user",
+              "action": "navigate_to_birthday"
+            },
+            {
+              "id": "favorites_quick",
+              "title": "Избранное",
+              "icon": "star",
+              "action": "navigate_to_favorites"
+            }
+          ]
+        },
+        {
+          "type": "info",
+          "title": "О 49 Буквицах",
+          "description": "Древняя славянская система 49 букв, каждая из которых носит глубокий смысл и эзотерическое значение. Учитесь, медитируйте и развивайтесь вместе с первобытной мудростью предков.",
+          "cta": "Узнать больше"
+        }
+      ]
+    },
+    "study": {
+      "layout": "card_carousel_with_menu",
+      "header": {
+        "title": "Учебник буквиц",
+        "search_enabled": true,
+        "filter_enabled": true
+      },
+      "main_content": {
+        "layout": "card_swipe",
+        "card_structure": {
+          "visual_section": {
+            "symbol": {
+              "size": "dynamic",
+              "background": "gold_square",
+              "color": "red",
+              "animation": "glow"
+            }
+          },
+          "info_section": {
+            "name": "string",
+            "transliteration": "string",
+            "meaning_short": "string (1-2 sentences)",
+            "semantic_modules": "array[4 items]"
+          },
+          "action_buttons": [
+            {
+              "label": "Подробнее",
+              "action": "expand_full_description",
+              "icon": "chevron_down"
+            },
+            {
+              "label": "В избранное",
+              "action": "add_to_favorites",
+              "icon": "star"
+            },
+            {
+              "label": "Поделиться",
+              "action": "share",
+              "icon": "share"
+            }
+          ]
+        },
+        "navigation": {
+          "swipe_left_right": "next_previous_rune",
+          "numbered_menu": "quick_jump_to_number",
+          "search": "find_by_name_meaning_module"
+        }
+      },
+      "expanded_view": {
+        "full_description": "text with formatting",
+        "esoteric_meaning": "text",
+        "divination_meaning": "text",
+        "examples": "array of stories",
+        "related_bukvitsy": "array of connected runes"
+      }
+    },
+    "daily": {
+      "layout": "centered_card",
+      "sections": [
+        {
+          "type": "daily_rune_card",
+          "content": {
+            "symbol": "large_centered",
+            "name": "string",
+            "date": "today",
+            "meaning": "string",
+            "semantic_modules": "array[4]",
+            "daily_interpretation": "text - что эта буквица означает для вас сегодня",
+            "advice": "text - рекомендация на день"
+          }
+        },
+        {
+          "type": "actions",
+          "items": [
+            {
+              "label": "Получить другую",
+              "action": "get_random_rune"
+            },
+            {
+              "label": "История",
+              "action": "view_history"
+            }
+          ]
+        }
+      ],
+      "history_view": {
+        "layout": "timeline",
+        "items": "array of past daily runes with dates"
+      }
+    },
+    "birthday": {
+      "layout": "form_to_results",
+      "form": {
+        "input_type": "date_picker",
+        "fields": [
+          {
+            "label": "Дата рождения",
+            "type": "date",
+            "placeholder": "ДД.МММ.ГГГГ",
+            "required": true
+          }
+        ],
+        "submit": {
+          "label": "Найти мою буквицу",
+          "action": "calculate_bukvitsy"
+        }
+      },
+      "results": {
+        "layout": "stacked_cards",
+        "sections": [
+          {
+            "title": "Буквица Личности",
+            "description": "Ваша основная энергия и природный характер",
+            "card": "full_bukvitsa_card"
+          },
+          {
+            "title": "Буквица Судьбы",
+            "description": "Ваше жизненное предназначение",
+            "card": "full_bukvitsa_card"
+          },
+          {
+            "title": "Характеристика",
+            "description": "Описание вашей личности на основе буквиц",
+            "content": "generated_text"
+          },
+          {
+            "title": "Путь Инициации",
+            "description": "Последовательность смежных буквиц для развития",
+            "content": "sequence_of_related_bukvitsy"
+          },
+          {
+            "title": "Совместимость",
+            "description": "Гармония с другими буквицами",
+            "content": "compatibility_chart"
+          }
+        ]
+      }
+    }
+  },
+  "features": {
+    "search": {
+      "search_by": ["name", "meaning", "semantic_module", "letter"],
+      "debounce_ms": 300,
+      "show_suggestions": true
+    },
+    "filter": {
+      "filter_by": ["semantic_module"],
+      "multi_select": true,
+      "show_count": true
+    },
+    "favorites": {
+      "storage": "local_storage",
+      "export_enabled": true,
+      "sync_across_devices": false
+    },
+    "notifications": {
+      "daily_rune_notification": {
+        "enabled": true,
+        "default_time": "08:00",
+        "customizable": true
+      }
+    },
+    "sharing": {
+      "platforms": ["whatsapp", "telegram", "instagram", "copy_link"],
+      "format": "image_with_text"
+    }
+  },
+  "data": {
+    "source": "bukvitsy_complete.json",
+    "total_bukvitsy": 49,
+    "structure": {
+      "fields": [
+        "id",
+        "number",
+        "letter",
+        "name",
+        "transliteration",
+        "meaning",
+        "semantic_modules",
+        "full_description",
+        "esoteric_meaning",
+        "divination_meaning",
+        "examples"
+      ]
+    }
+  },
+  "accessibility": {
+    "font_size_adjustable": true,
+    "dark_mode": true,
+    "high_contrast_mode": true,
+    "screen_reader_support": true,
+    "keyboard_navigation": true
+  },
+  "offline": {
+    "fully_offline": true,
+    "sync": false,
+    "cache_images": true
+  }
+}
