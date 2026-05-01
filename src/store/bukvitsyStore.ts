@@ -1,6 +1,21 @@
 import { create } from 'zustand';
 import { Bukvitsa, DailyRune } from '../types';
-import bukvitsyData from '../data/bukvitsy.json';
+import bukvitsyData from '../data/bukvitsy_complete.json';
+
+const normalizedBukvitsy: Bukvitsa[] = bukvitsyData.map((item) => ({
+  ...item,
+  full_description: item.description || item.full_description || '',
+  semantic_modules: Array.isArray(item.semantic_modules)
+    ? item.semantic_modules.map((module) =>
+        typeof module === 'string'
+          ? module
+          : {
+              name: module.name || String(module),
+              description: module.description || '',
+            }
+      )
+    : [],
+}));
 
 interface BukvitsyStore {
   bukvitsy: Bukvitsa[];
@@ -28,7 +43,7 @@ export const useBukvitsyStore = create<BukvitsyStore>((set, get) => {
   const initialDailyHistory = savedDailyHistory ? JSON.parse(savedDailyHistory) : [];
 
   return {
-    bukvitsy: [...bukvitsyData].sort((a, b) => a.number - b.number),
+    bukvitsy: [...normalizedBukvitsy].sort((a, b) => a.number - b.number),
     favorites: initialFavorites,
     history: initialHistory,
     dailyHistory: initialDailyHistory,

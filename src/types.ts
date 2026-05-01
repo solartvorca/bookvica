@@ -1,3 +1,8 @@
+export interface SemanticModule {
+  name: string;
+  description?: string;
+}
+
 export interface Bukvitsa {
   id: number;
   number: number;
@@ -5,8 +10,12 @@ export interface Bukvitsa {
   name: string;
   transliteration: string;
   meaning: string;
-  semantic_modules: string[];
+  semantic_modules: Array<SemanticModule | string>;
+  description?: string;
   full_description?: string;
+  example?: string;
+  mysteries?: string;
+  divination?: string;
 }
 
 export interface DailyRune {

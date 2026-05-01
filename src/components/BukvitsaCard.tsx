@@ -18,7 +18,10 @@ export default function BukvitsaCard({
   const [isExpanded, setIsExpanded] = useState(showFullDescription);
 
   const handleShare = () => {
-    const text = `${bukvitsa.name} (${bukvitsa.letter}) - ${bukvitsa.meaning}\n\nСемантические модули:\n${bukvitsa.semantic_modules.join('\n')}`;
+    const modulesText = bukvitsa.semantic_modules
+      .map((module) => (typeof module === 'string' ? module : module.name))
+      .join('\n');
+    const text = `${bukvitsa.name} (${bukvitsa.letter}) - ${bukvitsa.meaning}\n\nСемантические модули:\n${modulesText}`;
     if (navigator.share) {
       navigator.share({
         title: `Буквица: ${bukvitsa.name}`,
@@ -68,20 +71,29 @@ export default function BukvitsaCard({
         <h3 className="text-bukvitsa-gold text-xs font-bold uppercase mb-3 tracking-wider">
           🔮 Семантические модули:
         </h3>
-        <ul className="space-y-2">
-          {bukvitsa.semantic_modules.map((module, idx) => (
-            <li key={idx} className="text-gray-300 text-sm flex items-start gap-2">
-              <span className="text-bukvitsa-gold mt-1">◆</span>
-              <span>{module}</span>
-            </li>
-          ))}
+        <ul className="space-y-3">
+          {bukvitsa.semantic_modules.map((module, idx) => {
+            const moduleName = typeof module === 'string' ? module : module.name;
+            const moduleDesc = typeof module === 'string' ? '' : module.description;
+            return (
+              <li key={idx} className="text-gray-300 text-sm">
+                <div className="flex items-start gap-2">
+                  <span className="text-bukvitsa-gold mt-1">◆</span>
+                  <div>
+                    <div className="font-semibold">{moduleName}</div>
+                    {moduleDesc && <div className="text-gray-400 text-xs mt-1">{moduleDesc}</div>}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
       {/* Развёрнутое описание */}
-      {isExpanded && bukvitsa.full_description && (
+      {isExpanded && (bukvitsa.full_description || bukvitsa.description) && (
         <div className="border-t border-bukvitsa-gold/20 pt-4 mb-4 bg-bukvitsa-black/30 p-4 rounded text-sm text-gray-300 leading-relaxed">
-          {bukvitsa.full_description}
+          {bukvitsa.full_description || bukvitsa.description}
         </div>
       )}
 
