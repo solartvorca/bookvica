@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Star, Share2 } from 'lucide-react';
 import { Bukvitsa } from '../types';
 
@@ -16,6 +16,7 @@ export default function BukvitsaCard({
   showFullDescription = false,
 }: BukvitsaCardProps) {
   const [isExpanded, setIsExpanded] = useState(showFullDescription);
+  const [activeSection, setActiveSection] = useState('description');
 
   const handleShare = () => {
     const modulesText = bukvitsa.semantic_modules
@@ -31,6 +32,42 @@ export default function BukvitsaCard({
       navigator.clipboard.writeText(text);
     }
   };
+
+  const { description, example, mysteries, divination } = bukvitsa;
+
+  const exampleSections = useMemo(() => {
+    const text = example || '';
+    const practiceMatch = text.match(/(Практика[\s\S]*?)(?=\n\s*Как|$)/i);
+    const practice = practiceMatch ? practiceMatch[1].trim() : '';
+    let remaining = practice ? text.replace(practiceMatch![1], '').trim() : text;
+    const questionMatch = remaining.match(/(Как[\s\S]*)$/i);
+    const question = questionMatch ? questionMatch[1].trim() : '';
+    if (question) {
+      remaining = remaining.replace(questionMatch[1], '').trim();
+    }
+    return {
+      example: remaining,
+      practice,
+      question,
+    };
+  }, [example]);
+
+  const sections = [
+    { key: 'description', label: 'Описание', content: description || bukvitsa.full_description },
+    { key: 'example', label: 'Пример / глупость', content: exampleSections.example },
+    { key: 'practice', label: 'Практика', content: exampleSections.practice },
+    { key: 'question', label: 'Вопрос', content: exampleSections.question },
+    { key: 'mysteries', label: 'Тайны', content: mysteries },
+    { key: 'divination', label: 'Гадальное', content: divination },
+  ].filter((section) => section.content && section.content.length > 0);
+
+  useEffect(() => {
+    if (sections.length > 0 && !sections.some((section) => section.key === activeSection)) {
+      setActiveSection(sections[0].key);
+    }
+  }, [sections, activeSection]);
+
+  const activeContent = sections.find((section) => section.key === activeSection) || sections[0];
 
   return (
     <div className="card-glow bg-gradient-to-br from-bukvitsa-dark-blue to-bukvitsa-black rounded-lg p-6 border border-bukvitsa-gold/20 max-w-md mx-auto w-full">
@@ -91,9 +128,33 @@ export default function BukvitsaCard({
       </div>
 
       {/* Развёрнутое описание */}
-      {isExpanded && (bukvitsa.full_description || bukvitsa.description) && (
-        <div className="border-t border-bukvitsa-gold/20 pt-4 mb-4 bg-bukvitsa-black/30 p-4 rounded text-sm text-gray-300 leading-relaxed">
-          {bukvitsa.full_description || bukvitsa.description}
+      {isExpanded && sections.length > 0 && (
+        <div className="border-t border-bukvitsa-gold/20 pt-4 mb-4 bg-bukvitsa-black/30 rounded">
+          <div className="flex flex-wrap gap-2 px-4 pb-4">
+            {sections.map((section) => (
+              <button
+                key={section.key}
+                onClick={() => setActiveSection(section.key)}
+                className={`px-3 py-2 rounded-md text-xs font-semibold transition ${
+                  activeSection === section.key
+                    ? 'bg-bukvitsa-gold text-bukvitsa-black'
+                    : 'bg-bukvitsa-black/70 text-gray-300 hover:bg-bukvitsa-gold/20'
+                }`}
+              >
+                {section.label}
+              </button>
+            ))}
+          </div>
+          <div className="px-4 pb-4 text-sm text-gray-300 leading-relaxed space-y-4">
+            {activeContent && (
+              <div>
+                <div className="text-bukvitsa-gold font-semibold text-sm uppercase tracking-wider mb-2">
+                  {activeContent.label}
+                </div>
+                <div>{activeContent.content}</div>
+              </div>
+            )}
+          </div>
         </div>
       )}
 

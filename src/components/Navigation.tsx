@@ -12,7 +12,7 @@ export default function Navigation() {
   const navItems = [
     { path: '/', icon: Home, label: 'Главная', id: 'home' },
     { path: '/study', icon: Book, label: 'Учебник', id: 'study' },
-    { path: '/daily', icon: Calendar, label: 'Буквица дня', id: 'daily' },
+    { path: '/daily', icon: Calendar, label: 'Послание дня', id: 'daily' },
     { path: '/birthday', icon: User, label: 'По дате', id: 'birthday' },
     { path: '/favorites', icon: Star, label: 'Избранное', id: 'favorites' },
   ];

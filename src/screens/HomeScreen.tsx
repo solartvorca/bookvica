@@ -41,18 +41,18 @@ export default function HomeScreen() {
           className="flex items-center justify-center gap-2 bg-bukvitsa-gold/80 hover:bg-bukvitsa-gold text-bukvitsa-black py-4 rounded-lg font-bold transition active:scale-95"
         >
           <Sparkles size={20} />
-          <span>Буквица дня</span>
+          <span>Послание дня</span>
         </Link>
       </div>
 
-      {/* Буквица дня */}
+      {/* Послание дня */}
       {dailyRune && (
         <div className="space-y-4">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-bukvitsa-gold mb-2">✨ Буквица дня</h2>
+            <h2 className="text-2xl font-bold text-bukvitsa-gold mb-2">✨ Послание дня</h2>
             <p className="text-gray-400 text-sm">Послание, которое нужно услышать именно вам</p>
           </div>
-          <BukvitsaCard bukvitsa={dailyRune} />
+          <BukvitsaCard bukvitsa={dailyRune} showFullDescription={true} />
           <div className="text-center text-sm text-gray-400 max-w-md mx-auto">
             <p className="leading-relaxed">
               Сегодня {dailyRune.name} приносит вам послание о <span className="text-bukvitsa-gold font-semibold">{dailyRune.meaning}</span>.

@@ -1,25 +1,55 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RefreshCw, Calendar } from 'lucide-react';
 import BukvitsaCard from '../components/BukvitsaCard';
 import { useBukvitsyStore } from '../store/bukvitsyStore';
+import { Bukvitsa } from '../types';
 
 export default function DailyScreen() {
-  const { getDailyRune, getRandomRune, dailyHistory, addDailyRune, addFavorite, removeFavorite, isFavorite } = useBukvitsyStore();
+  const store = useBukvitsyStore();
   const [showHistory, setShowHistory] = useState(false);
+  const [dailyRune, setDailyRune] = useState<Bukvitsa | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const dailyRune = getDailyRune();
+  useEffect(() => {
+    console.log('DailyScreen: useEffect called');
+    try {
+      console.log('Store bukvitsy count:', store.bukvitsy.length);
+      const rune = store.getDailyRune();
+      console.log('Got daily rune:', rune?.name);
+      if (rune) {
+        setDailyRune(rune);
+        setError(null);
+      } else {
+        setError('Не удалось загрузить послание');
+        console.error('getDailyRune returned null');
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error('Error loading daily rune:', message);
+      setError(`Ошибка: ${message}`);
+    }
+  }, []);
 
   const handleGetRandom = () => {
-    const randomRune = getRandomRune();
-    addDailyRune(randomRune);
+    try {
+      const randomRune = store.getRandomRune();
+      if (randomRune) {
+        store.addDailyRune(randomRune);
+        setDailyRune(randomRune);
+      } else {
+        console.error('Failed to get random rune');
+      }
+    } catch (error) {
+      console.error('Error getting random rune:', error);
+    }
   };
 
   const handleToggleFavorite = () => {
     if (dailyRune) {
-      if (isFavorite(dailyRune.id)) {
-        removeFavorite(dailyRune.id);
+      if (store.isFavorite(dailyRune.id)) {
+        store.removeFavorite(dailyRune.id);
       } else {
-        addFavorite(dailyRune.id);
+        store.addFavorite(dailyRune.id);
       }
     }
   };
@@ -28,9 +58,22 @@ export default function DailyScreen() {
     <div className="space-y-6 max-w-2xl mx-auto px-4 py-8">
       {/* Заголовок */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-bukvitsa-cream mb-2">Буквица Дня</h1>
+        <h1 className="text-3xl font-bold text-bukvitsa-cream mb-2">Послание дня</h1>
         <p className="text-gray-400">Послание из глубин времени</p>
       </div>
+
+      {error && (
+        <div className="text-center py-12">
+          <p className="text-red-400 mb-4">{error}</p>
+        </div>
+      )}
+
+      {!dailyRune && !error && (
+        <div className="text-center py-12">
+          <p className="text-gray-400 mb-4">Загружение послания...</p>
+          <div className="animate-spin">⏳</div>
+        </div>
+      )}
 
       {dailyRune && (
         <>
@@ -43,9 +86,9 @@ export default function DailyScreen() {
           {/* Карточка буквицы */}
           <BukvitsaCard
             bukvitsa={dailyRune}
-            isFavorite={isFavorite(dailyRune.id)}
+            isFavorite={store.isFavorite(dailyRune.id)}
             onToggleFavorite={handleToggleFavorite}
-            showFullDescription={false}
+            showFullDescription={true}
           />
 
           {/* Интерпретация дня */}
@@ -57,12 +100,15 @@ export default function DailyScreen() {
               внимание следующим аспектам:
             </p>
             <ul className="space-y-2">
-              {dailyRune.semantic_modules.map((module, idx) => (
-                <li key={idx} className="text-gray-300 flex items-start gap-3">
-                  <span className="text-bukvitsa-gold font-bold">→</span>
-                  <span>{module}</span>
-                </li>
-              ))}
+              {dailyRune.semantic_modules.map((module, idx) => {
+                const moduleName = typeof module === 'string' ? module : module.name;
+                return (
+                  <li key={idx} className="text-gray-300 flex items-start gap-3">
+                    <span className="text-bukvitsa-gold font-bold">→</span>
+                    <span>{moduleName}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -88,9 +134,9 @@ export default function DailyScreen() {
           {showHistory && (
             <div className="bg-bukvitsa-dark-blue/50 border border-bukvitsa-gold/20 rounded-lg p-6 space-y-4">
               <h3 className="text-lg font-bold text-bukvitsa-gold">📅 История буквиц дня</h3>
-              {dailyHistory.length > 0 ? (
+              {store.dailyHistory.length > 0 ? (
                 <div className="space-y-3 max-h-64 overflow-y-auto">
-                  {dailyHistory.map((item, idx) => (
+                  {store.dailyHistory.map((item: any, idx: number) => (
                     <div key={idx} className="flex justify-between items-center py-2 border-b border-bukvitsa-gold/10">
                       <div>
                         <p className="font-semibold text-bukvitsa-gold">{item.bukvitsa.name}</p>
