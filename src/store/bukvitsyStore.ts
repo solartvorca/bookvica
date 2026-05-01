@@ -28,7 +28,7 @@ export const useBukvitsyStore = create<BukvitsyStore>((set, get) => {
   const initialDailyHistory = savedDailyHistory ? JSON.parse(savedDailyHistory) : [];
 
   return {
-    bukvitsy: bukvitsyData,
+    bukvitsy: [...bukvitsyData].sort((a, b) => a.number - b.number),
     favorites: initialFavorites,
     history: initialHistory,
     dailyHistory: initialDailyHistory,

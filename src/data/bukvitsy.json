@@ -73,7 +73,7 @@
     "id": 6,
     "number": 6,
     "letter": "Є",
-    "name": "Есть",
+    "name": "Єсть",
     "transliteration": "Est'",
     "meaning": "Бытие, существование, наличие",
     "semantic_modules": [
@@ -86,22 +86,22 @@
   {
     "id": 7,
     "number": 7,
-    "letter": "Ё",
-    "name": "Есть",
-    "transliteration": "Yo",
-    "meaning": "Свобода, вольность, расширение",
+    "letter": "E",
+    "name": "Єсмь",
+    "transliteration": "Esm",
+    "meaning": "Сущность, плотность, проявление",
     "semantic_modules": [
-      "Свобода выбора",
-      "Расширение сознания",
-      "Вольность и независимость",
-      "Творческая свобода"
+      "Проявленное существование",
+      "Плотность мира",
+      "Материальное выражение",
+      "Явление скрытого"
     ]
   },
   {
     "id": 8,
     "number": 8,
     "letter": "Ж",
-    "name": "Животъ",
+    "name": "Живот",
     "transliteration": "Zhivot",
     "meaning": "Жизнь, живое, энергия жизни",
     "semantic_modules": [
@@ -114,9 +114,9 @@
   {
     "id": 9,
     "number": 9,
-    "letter": "З",
-    "name": "Зъло",
-    "transliteration": "Zlo",
+    "letter": "Ѕ",
+    "name": "Sъло",
+    "transliteration": "Slo",
     "meaning": "Преобразование, изменение, энергия",
     "semantic_modules": [
       "Энергия изменения",
@@ -128,8 +128,8 @@
   {
     "id": 10,
     "number": 10,
-    "letter": "З",
-    "name": "Земля",
+    "letter": "Ꙁ",
+    "name": "Ꙁємля",
     "transliteration": "Zemlya",
     "meaning": "Земля, материя, плотный мир",
     "semantic_modules": [
@@ -143,7 +143,7 @@
     "id": 11,
     "number": 11,
     "letter": "И",
-    "name": "Иже",
+    "name": "Ижє",
     "transliteration": "Izhe",
     "meaning": "Соединение, андрогин, единство противоположностей",
     "semantic_modules": [
@@ -157,8 +157,8 @@
     "id": 12,
     "number": 12,
     "letter": "І",
-    "name": "Иже",
-    "transliteration": "I",
+    "name": "iжєи",
+    "transliteration": "Izhei",
     "meaning": "Божественное Я, высшее сознание",
     "semantic_modules": [
       "Высшее Я",
@@ -171,8 +171,8 @@
     "id": 13,
     "number": 13,
     "letter": "Ї",
-    "name": "Иже",
-    "transliteration": "Yi",
+    "name": "ïнить",
+    "transliteration": "Yinits",
     "meaning": "Йога, связь, соединение путей",
     "semantic_modules": [
       "Духовное соединение",
@@ -184,8 +184,8 @@
   {
     "id": 14,
     "number": 14,
-    "letter": "Ѓ",
-    "name": "Герьвь",
+    "letter": "Ꙉ",
+    "name": "Гєрвь",
     "transliteration": "Gerv",
     "meaning": "Лиственница, священный путь, прозрение",
     "semantic_modules": [
@@ -213,7 +213,7 @@
     "id": 16,
     "number": 16,
     "letter": "Л",
-    "name": "Людие",
+    "name": "Людïє",
     "transliteration": "Lyudie",
     "meaning": "Люди, народ, множество",
     "semantic_modules": [
@@ -227,7 +227,7 @@
     "id": 17,
     "number": 17,
     "letter": "М",
-    "name": "Мыслите",
+    "name": "Мыслитѣ",
     "transliteration": "Myslite",
     "meaning": "Мысль, ум, мудрость ума",
     "semantic_modules": [
@@ -241,7 +241,7 @@
     "id": 18,
     "number": 18,
     "letter": "Н",
-    "name": "Нашъ",
+    "name": "Нашь",
     "transliteration": "Nash",
     "meaning": "Наш, принадлежность, связь с родом",
     "semantic_modules": [
@@ -269,7 +269,7 @@
     "id": 20,
     "number": 20,
     "letter": "П",
-    "name": "Покой",
+    "name": "Покои",
     "transliteration": "Pokoy",
     "meaning": "Покой, мир, равновесие",
     "semantic_modules": [
@@ -283,7 +283,7 @@
     "id": 21,
     "number": 21,
     "letter": "Р",
-    "name": "Рецы",
+    "name": "Рѣци",
     "transliteration": "Retsy",
     "meaning": "Речение, поток, рождение",
     "semantic_modules": [
@@ -311,7 +311,7 @@
     "id": 23,
     "number": 23,
     "letter": "Т",
-    "name": "Твёрдо",
+    "name": "Твѣрдо",
     "transliteration": "Tvyordo",
     "meaning": "Твёрдость, стабильность, скрытая энергия",
     "semantic_modules": [
@@ -338,7 +338,7 @@
   {
     "id": 25,
     "number": 25,
-    "letter": "Ѹ",
+    "letter": "Ꙋ",
     "name": "Оукъ",
     "transliteration": "Ouk",
     "meaning": "Оук, кривизна, искривление, путь инициации",
@@ -353,7 +353,7 @@
     "id": 26,
     "number": 26,
     "letter": "Ф",
-    "name": "Фертъ",
+    "name": "Фѣрть",
     "transliteration": "Fert",
     "meaning": "Фертъ, плодородие, созидание",
     "semantic_modules": [
@@ -367,7 +367,7 @@
     "id": 27,
     "number": 27,
     "letter": "Х",
-    "name": "Хѐръ",
+    "name": "Хѣръ",
     "transliteration": "Kher",
     "meaning": "Хер, солнце, божественный огонь",
     "semantic_modules": [
@@ -380,7 +380,7 @@
   {
     "id": 28,
     "number": 28,
-    "letter": "Ѡ",
+    "letter": "Ѿ",
     "name": "Отъ",
     "transliteration": "Ot",
     "meaning": "От, завершение, круговращение",
@@ -409,8 +409,8 @@
     "id": 30,
     "number": 30,
     "letter": "Ч",
-    "name": "Человек",
-    "transliteration": "Chelovek",
+    "name": "Yєрвль",
+    "transliteration": "Yervl",
     "meaning": "Человек, сущность, воплощение",
     "semantic_modules": [
       "Человеческое воплощение",
@@ -451,7 +451,7 @@
     "id": 33,
     "number": 33,
     "letter": "Ъ",
-    "name": "Еръ",
+    "name": "Єръ",
     "transliteration": "Er",
     "meaning": "Еръ, отделение, разделение, энергия",
     "semantic_modules": [
@@ -464,10 +464,10 @@
   {
     "id": 34,
     "number": 34,
-    "letter": "Ы",
-    "name": "Еры",
+    "letter": "Ꙑ",
+    "name": "Єры",
     "transliteration": "Yry",
-    "meaning": "Еры, множественность, сложность",
+    "meaning": "Єры, множественность, сложность",
     "semantic_modules": [
       "Множественность проявлений",
       "Сложность жизни",
@@ -492,7 +492,7 @@
   {
     "id": 36,
     "number": 36,
-    "letter": "Ѧ",
+    "letter": "Ѣ",
     "name": "Ять",
     "transliteration": "Yat'",
     "meaning": "Ять, ясность, ясные знания",
@@ -507,7 +507,7 @@
     "id": 37,
     "number": 37,
     "letter": "Ю",
-    "name": "Юнь",
+    "name": "Юнъ",
     "transliteration": "Yun'",
     "meaning": "Юнь, движение, энергия Инь-Ян",
     "semantic_modules": [
@@ -520,8 +520,8 @@
   {
     "id": 38,
     "number": 38,
-    "letter": "Я",
-    "name": "Ярь",
+    "letter": "Ꙗ",
+    "name": "Арь",
     "transliteration": "Yar'",
     "meaning": "Ярь, ярость, созидающая сила, весна",
     "semantic_modules": [
@@ -534,66 +534,66 @@
   {
     "id": 39,
     "number": 39,
-    "letter": "Ќ",
-    "name": "Кси",
-    "transliteration": "Ksi",
-    "meaning": "Кси, высший синтез, единство противоположностей",
+    "letter": "Ѥ",
+    "name": "Эдо",
+    "transliteration": "Edo",
+    "meaning": "Эдо, путь к истоку, внутренний огонь",
     "semantic_modules": [
-      "Синтез высшего порядка",
-      "Преодоление дуальности",
-      "Единство в многообразии",
-      "Тайна всех тайн"
+      "Путь к истоку",
+      "Внутренний огонь",
+      "Очищение",
+      "Познание себя"
     ]
   },
   {
     "id": 40,
     "number": 40,
-    "letter": "Ѱ",
-    "name": "Пси",
-    "transliteration": "Psi",
-    "meaning": "Пси, душа, психическая энергия",
+    "letter": "Ѡ",
+    "name": "Омъ",
+    "transliteration": "Om",
+    "meaning": "Омъ, завершение, круговращение",
     "semantic_modules": [
-      "Душа и психика",
-      "Тройственность",
-      "Магическая энергия",
-      "Сверхсознание"
+      "Завершение цикла",
+      "Полнота и целостность",
+      "Вращение времени",
+      "Возврат в начало"
     ]
   },
   {
     "id": 41,
     "number": 41,
-    "letter": "Ѳ",
-    "name": "Фита",
-    "transliteration": "Fita",
-    "meaning": "Фита, огонь, испытание, очищение",
+    "letter": "Ѧ",
+    "name": "Єнъ",
+    "transliteration": "Yen",
+    "meaning": "Єнъ, дыхание, дух, эзотерическое присутствие",
     "semantic_modules": [
-      "Огонь испытания",
-      "Очищение кармы",
-      "Трансмутация",
-      "Посвящение в огне"
+      "Дыхание духа",
+      "Эзотерическое присутствие",
+      "Связь неба и земли",
+      "Тонкое восприятие"
     ]
   },
   {
     "id": 42,
     "number": 42,
-    "letter": "Ѵ",
-    "name": "Ижица",
-    "transliteration": "Izhitsa",
-    "meaning": "Ижица, путь, выбор, развилка",
+    "letter": "Ѫ",
+    "name": "Одь",
+    "transliteration": "Od",
+    "meaning": "Одь, сила, плотность, земля",
     "semantic_modules": [
-      "Выбор пути",
-      "Развилка судеб",
-      "Два пути",
-      "Последствия выбора"
+      "Материальная сила",
+      "Плотность и устойчивость",
+      "Корни и основа",
+      "Наследие земли"
     ]
   },
   {
     "id": 43,
     "number": 43,
-    "letter": "Ѣ",
-    "name": "Ета",
+    "letter": "Ѩ",
+    "name": "Ëта",
     "transliteration": "Eta",
-    "meaning": "Ета, гласная, резонанс, вибрация",
+    "meaning": "Ëта, гласная, резонанс, вибрация",
     "semantic_modules": [
       "Вибрация звука",
       "Резонанс с космосом",
@@ -604,7 +604,7 @@
   {
     "id": 44,
     "number": 44,
-    "letter": "Ѻ",
+    "letter": "Ѭ",
     "name": "Ота",
     "transliteration": "Ota",
     "meaning": "Ота, отец, наследие, защита",
@@ -660,29 +660,29 @@
   {
     "id": 48,
     "number": 48,
-    "letter": "В",
-    "name": "Веди",
-    "transliteration": "Vedi",
-    "meaning": "Веди, новое ведение, память",
+    "letter": "Ѵ",
+    "name": "Ижица",
+    "transliteration": "Izhitsa",
+    "meaning": "Ижица, путь, выбор, развилка",
     "semantic_modules": [
-      "Восстановление памяти",
-      "Глубокое знание",
-      "Сакральное ведение",
-      "Выход на новый уровень"
+      "Выбор пути",
+      "Развилка судеб",
+      "Два пути",
+      "Последствия выбора"
     ]
   },
   {
     "id": 49,
     "number": 49,
-    "letter": "Н",
-    "name": "Нашъ",
-    "transliteration": "Nash",
-    "meaning": "Нашъ, возврат к корням, полный цикл",
+    "letter": "Ӕ",
+    "name": "Ижа",
+    "transliteration": "Izh",
+    "meaning": "Ижа, соединение, путь к источнику",
     "semantic_modules": [
-      "Возврат к истокам",
-      "Полный цикл развития",
-      "Единство с родом",
-      "Замыкание круга"
+      "Связь с началом",
+      "Путь к источнику",
+      "Внутреннее единство",
+      "Сила корней"
     ]
   }
 ]
