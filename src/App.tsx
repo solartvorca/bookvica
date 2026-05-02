@@ -24,7 +24,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/bookvica">
       <div className="min-h-screen bg-gradient-to-b from-bukvitsa-black via-bukvitsa-dark-blue to-bukvitsa-black text-white">
         <Navigation />
         <main className="pb-24 pt-16">

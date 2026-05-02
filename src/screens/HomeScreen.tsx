@@ -59,7 +59,7 @@ export default function HomeScreen() {
           <BukvitsaCard bukvitsa={dailyRune} showFullDescription={true} />
           <div className="text-center text-sm text-gray-400 max-w-md mx-auto">
             <p className="leading-relaxed">
-              Сегодня {dailyRune.name} приносит вам послание о <span className="text-bukvitsa-gold font-semibold">{dailyRune.meaning}</span>.
+              Сегодня {dailyRune?.name} приносит вам послание о <span className="text-bukvitsa-gold font-semibold">{dailyRune?.meaning}</span>.
               Постарайтесь в течение дня уделить внимание этим аспектам вашей жизни.
             </p>
           </div>
