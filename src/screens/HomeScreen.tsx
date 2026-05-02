@@ -5,7 +5,7 @@ import BukvitsaCard from '../components/BukvitsaCard';
 import { useBukvitsyStore } from '../store/bukvitsyStore';
 
 export default function HomeScreen() {
-  const { getDailyRune, addToHistory } = useBukvitsyStore();
+  const { getDailyRune, addToHistory, isLoading } = useBukvitsyStore();
   const dailyRune = getDailyRune();
 
   useEffect(() => {
@@ -13,6 +13,10 @@ export default function HomeScreen() {
       addToHistory(dailyRune.id);
     }
   }, [dailyRune, addToHistory]);
+
+  if (isLoading) {
+    return <div>Загрузка...</div>;
+  }
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto px-4 py-8">
@@ -74,7 +78,6 @@ export default function HomeScreen() {
             Полная база древних букв с их смыслом и энергией
           </p>
         </Link>
-
         <Link
           to="/birthday"
           className="bg-bukvitsa-dark-blue border border-bukvitsa-gold/20 hover:border-bukvitsa-gold/50 rounded-lg p-6 transition group"
@@ -85,7 +88,6 @@ export default function HomeScreen() {
             Найдите свою буквицу по дате рождения
           </p>
         </Link>
-
         <Link
           to="/favorites"
           className="bg-bukvitsa-dark-blue border border-bukvitsa-gold/20 hover:border-bukvitsa-gold/50 rounded-lg p-6 transition group"
