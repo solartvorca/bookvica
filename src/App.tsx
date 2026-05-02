@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import HomeScreen from './screens/HomeScreen';
@@ -6,8 +6,23 @@ import StudyScreen from './screens/StudyScreen';
 import DailyScreen from './screens/DailyScreen';
 import BirthdayScreen from './screens/BirthdayScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
+import { useBukvitsyStore } from './store/bukvitsyStore';
 
 function App() {
+  const { initializeStore, isLoading } = useBukvitsyStore();
+
+  useEffect(() => {
+    initializeStore();
+  }, [initializeStore]);
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <p>Загрузка мудрости предков...</p>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-b from-bukvitsa-black via-bukvitsa-dark-blue to-bukvitsa-black text-white">

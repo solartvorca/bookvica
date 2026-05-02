@@ -1,36 +1,14 @@
 import { create } from 'zustand';
 import { Bukvitsa, DailyRune } from '../types';
-import bukvitsyData from '../data/bukvitsy_complete.json';
-
-const normalizedBukvitsy: Bukvitsa[] = (bukvitsyData as any[]).map((item) => ({
-  id: item.id,
-  number: item.number,
-  letter: item.letter,
-  name: item.name,
-  transliteration: item.transliteration || item.name || '',
-  meaning: item.meaning || item.description?.split('\n')[0] || '',
-  description: item.description || '',
-  full_description: item.description || item.full_description || '',
-  example: item.example || '',
-  mysteries: item.mysteries || '',
-  divination: item.divination || '',
-  semantic_modules: Array.isArray(item.semantic_modules)
-    ? item.semantic_modules.map((module: any) =>
-        typeof module === 'string'
-          ? module
-          : {
-              name: module.name || String(module),
-              description: module.description || '',
-            }
-      )
-    : [],
-}));
+import bukvitsyData from '../data/bukvitsy.json';
 
 interface BukvitsyStore {
   bukvitsy: Bukvitsa[];
+  isLoading: boolean;
   favorites: number[];
   history: number[];
   dailyHistory: DailyRune[];
+  initializeStore: () => Promise<void>;
   addFavorite: (id: number) => void;
   removeFavorite: (id: number) => void;
   isFavorite: (id: number) => boolean;
@@ -42,6 +20,30 @@ interface BukvitsyStore {
 }
 
 export const useBukvitsyStore = create<BukvitsyStore>((set, get) => {
+  const normalizedBukvitsy: Bukvitsa[] = (bukvitsyData as any[]).map((item) => ({
+    id: item.id,
+    number: item.number,
+    letter: item.letter,
+    name: item.name,
+    transliteration: item.transliteration || item.name || '',
+    meaning: item.meaning || item.description?.split('\\n')[0] || '',
+    description: item.description || '',
+    full_description: item.description || item.full_description || '',
+    example: item.example || '',
+    mysteries: item.mysteries || '',
+    divination: item.divination || '',
+    semantic_modules: Array.isArray(item.semantic_modules)
+      ? item.semantic_modules.map((module: any) =>
+          typeof module === 'string'
+            ? module
+            : {
+                name: module.name || String(module),
+                description: module.description || '',
+              }
+        )
+      : [],
+  }));
+
   // Load from localStorage with error handling
   let initialFavorites: number[] = [];
   let initialHistory: number[] = [];
@@ -74,18 +76,26 @@ export const useBukvitsyStore = create<BukvitsyStore>((set, get) => {
     console.error('Error loading daily history:', e);
   }
 
-  console.log('Store initialized:', {
-    bukvitsyCount: normalizedBukvitsy.length,
-    favoritesCount: initialFavorites.length,
-    historyCount: initialHistory.length,
-    dailyHistoryCount: initialDailyHistory.length,
-  });
-
   return {
-    bukvitsy: [...normalizedBukvitsy].sort((a, b) => a.number - b.number),
+    bukvitsy: [],
+    isLoading: true,
     favorites: initialFavorites,
     history: initialHistory,
     dailyHistory: initialDailyHistory,
+
+    initializeStore: async () => {
+      set({ isLoading: true });
+      try {
+        set({
+          bukvitsy: [...normalizedBukvitsy].sort((a, b) => a.number - b.number),
+          isLoading: false,
+        });
+        console.log('Store initialized successfully');
+      } catch (error) {
+        console.error('Failed to initialize store', error);
+        set({ isLoading: false });
+      }
+    },
 
     addFavorite: (id: number) =>
       set((state) => {
@@ -106,93 +116,93 @@ export const useBukvitsyStore = create<BukvitsyStore>((set, get) => {
         const newFavorites = state.favorites.filter((fav) => fav !== id);
         try {
           localStorage.setItem('bukvitsa_favorites', JSON.stringify(newFavorites));
-        } catch (e) {
-          console.error('Error saving favorites:', e);
-        }
-        return { favorites: newFavorites };
-      }),
+          } catch (e) {
+            console.error('Error saving favorites:', e);
+          }
+          return { favorites: newFavorites };
+        }),
 
-    isFavorite: (id: number) => {
-      return get().favorites.includes(id);
-    },
+      isFavorite: (id: number) => {
+        return get().favorites.includes(id);
+      },
 
-    addToHistory: (id: number) =>
-      set((state) => {
-        const newHistory = [id, ...state.history.filter((h) => h !== id)].slice(0, 20);
+      addToHistory: (id: number) =>
+        set((state) => {
+          const newHistory = [id, ...state.history.filter((h) => h !== id)].slice(0, 20);
+          try {
+            localStorage.setItem('bukvitsa_history', JSON.stringify(newHistory));
+          } catch (e) {
+            console.error('Error saving history:', e);
+          }
+          return { history: newHistory };
+        }),
+
+      addDailyRune: (bukvitsa: Bukvitsa) =>
+        set((state) => {
+          const today = new Date().toISOString().split('T')[0];
+          const newHistory = [
+            { date: today, bukvitsa },
+            ...state.dailyHistory.filter((d) => d.date !== today),
+          ].slice(0, 30);
+          try {
+            localStorage.setItem('bukvitsa_daily_history', JSON.stringify(newHistory));
+          } catch (e) {
+            console.error('Error saving daily history:', e);
+          }
+          return { dailyHistory: newHistory };
+        }),
+
+      getDailyRune: () => {
         try {
-          localStorage.setItem('bukvitsa_history', JSON.stringify(newHistory));
-        } catch (e) {
-          console.error('Error saving history:', e);
-        }
-        return { history: newHistory };
-      }),
+          const today = new Date().toISOString().split('T')[0];
+          const state = get();
 
-    addDailyRune: (bukvitsa: Bukvitsa) =>
-      set((state) => {
-        const today = new Date().toISOString().split('T')[0];
-        const newHistory = [
-          { date: today, bukvitsa },
-          ...state.dailyHistory.filter((d) => d.date !== today),
-        ].slice(0, 30);
+          if (!state.bukvitsy || state.bukvitsy.length === 0) {
+            console.error('No bukvitsy data available');
+            return null;
+          }
+
+          const existing = state.dailyHistory.find((d) => d.date === today);
+          if (existing && existing.bukvitsa) {
+            return existing.bukvitsa;
+          }
+
+          const randomRune = state.getRandomRune();
+          if (randomRune) {
+            state.addDailyRune(randomRune);
+            return randomRune;
+          }
+
+          console.error('Failed to get random rune');
+          return null;
+        } catch (e) {
+          console.error('Error in getDailyRune:', e);
+          return null;
+        }
+      },
+
+      getRandomRune: () => {
         try {
-          localStorage.setItem('bukvitsa_daily_history', JSON.stringify(newHistory));
+          const { bukvitsy } = get();
+          if (!bukvitsy || bukvitsy.length === 0) {
+            console.error('Bukvitsy array is empty or undefined');
+            return null;
+          }
+          const randomIndex = Math.floor(Math.random() * bukvitsy.length);
+          const rune = bukvitsy[randomIndex];
+          if (!rune) {
+            console.error('Got undefined rune at index', randomIndex);
+            return null;
+          }
+          return rune;
         } catch (e) {
-          console.error('Error saving daily history:', e);
-        }
-        return { dailyHistory: newHistory };
-      }),
-
-    getDailyRune: () => {
-      try {
-        const today = new Date().toISOString().split('T')[0];
-        const state = get();
-
-        if (!state.bukvitsy || state.bukvitsy.length === 0) {
-          console.error('No bukvitsy data available');
+          console.error('Error in getRandomRune:', e);
           return null;
         }
+      },
 
-        const existing = state.dailyHistory.find((d) => d.date === today);
-        if (existing && existing.bukvitsa) {
-          return existing.bukvitsa;
-        }
-
-        const randomRune = state.getRandomRune();
-        if (randomRune) {
-          state.addDailyRune(randomRune);
-          return randomRune;
-        }
-
-        console.error('Failed to get random rune');
-        return null;
-      } catch (e) {
-        console.error('Error in getDailyRune:', e);
-        return null;
-      }
-    },
-
-    getRandomRune: () => {
-      try {
-        const { bukvitsy } = get();
-        if (!bukvitsy || bukvitsy.length === 0) {
-          console.error('Bukvitsy array is empty or undefined');
-          return null;
-        }
-        const randomIndex = Math.floor(Math.random() * bukvitsy.length);
-        const rune = bukvitsy[randomIndex];
-        if (!rune) {
-          console.error('Got undefined rune at index', randomIndex);
-          return null;
-        }
-        return rune;
-      } catch (e) {
-        console.error('Error in getRandomRune:', e);
-        return null;
-      }
-    },
-
-    getBukvitsaById: (id: number) => {
-      return get().bukvitsy.find((b) => b.id === id);
-    },
-  };
-});
+      getBukvitsaById: (id: number) => {
+        return get().bukvitsy.find((b) => b.id === id);
+      },
+    };
+  });
