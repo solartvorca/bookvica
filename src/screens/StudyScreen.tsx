@@ -88,10 +88,6 @@ export default function StudyScreen() {
                 <div className="text-2xl font-bold text-bukvitsa-red font-serif">
                   {b.letter}
                 </div>
-                {/* Название буквицы */}
-                <div className="text-[10px] font-semibold text-bukvitsa-cream uppercase text-center leading-tight mt-1">
-                  {b.name}
-                </div>
                 {/* Номер */}
                 <div className="text-xs font-bold text-bukvitsa-gold mt-1">
                   {b.number}
