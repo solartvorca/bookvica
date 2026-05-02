@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import HomeScreen from './screens/HomeScreen';
 import StudyScreen from './screens/StudyScreen';
@@ -9,7 +9,7 @@ import FavoritesScreen from './screens/FavoritesScreen';
 
 function App() {
   return (
-    <Router basename={import.meta.env.PROD ? '/bookvisa' : ''}>
+    <Router>
       <div className="min-h-screen bg-gradient-to-b from-bukvitsa-black via-bukvitsa-dark-blue to-bukvitsa-black text-white">
         <Navigation />
         <main className="pb-24 pt-16">
